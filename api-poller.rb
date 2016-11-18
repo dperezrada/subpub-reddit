@@ -1,15 +1,14 @@
-w = Redd.it(:web, "USER_ID", "0-dEaZy2V9NAngbw5C2DgywOHYI", "http://localhost.3000", user_agent: "TestSite v1.0.0")
-url = w.auth_url("random_state", ["identity", "read"], :temporary)
-puts "Please go to #{url} and enter the code below:"
-code = gets.chomp
-w.authorize!(code)
+require "redd"
 
-stream_all!
+r = Redd.it(:script, "6tR9YMaHd16Y3w", "0-dEaZy2V9NAngbw5C2DgywOHYI", "USER", "PASSWORD", user_agent: "TestBot v1.0.0")
+r.authorize!
 
 # Streaming
-def stream_all!
+def stream_all! r
   r.stream :get_comments, "all" do |comment|
-    reddit.refresh_access! if reddit.access.expired? # for :web
+    r.refresh_access! if r.access.expired? # for :web
     puts comment.body
   end
 end
+
+stream_all!(r)
