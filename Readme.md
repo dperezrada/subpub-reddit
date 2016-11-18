@@ -6,7 +6,7 @@ gcloud beta pubsub subscriptions create fh-reddit-subscription --topic=fh-reddit
 
 ## Send the messages
 ```
-bundle exec ruby api-poller.rb |xargs -0 -I {} sh -c "gcloud beta pubsub topics publish fh-reddit-topic '{}'"
+bundle exec ruby api-poller.rb |xargs -n1 -P4 -I {} sh -c "gcloud beta pubsub topics publish fh-reddit-topic '{}'"
 ```
 
 ## Read the messages
