@@ -7,8 +7,7 @@ r.authorize!
 # Streaming
 def stream_all! r
   r.stream :get_comments, "all" do |comment|
-    puts JSON.pretty_generate(comment)
-    exit
+    puts comment.body.gsub(/[\n\r'"]/, ' ') 
   end
 end
 
