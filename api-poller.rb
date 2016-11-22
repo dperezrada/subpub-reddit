@@ -1,7 +1,16 @@
 require "redd"
-require 'json'
+require "json"
 
-r = Redd.it(:script, "6tR9YMaHd16Y3w", "0-dEaZy2V9NAngbw5C2DgywOHYI", "raff_cl", "lala4life2$!", user_agent: "TestBot v1.0.0")
+
+user = nil
+pass = nil
+IO.foreach('credentials.txt') do |line|
+  result = line.split(/:\s+/);
+  user = result[1] if result[0] == "user"
+  pass = result[1] if result[0] == "pass"
+ end
+
+r = Redd.it(:script, "6tR9YMaHd16Y3w", "0-dEaZy2V9NAngbw5C2DgywOHYI", user, pass, user_agent: "TestBot v1.0.0")
 r.authorize!
 
 # Streaming
